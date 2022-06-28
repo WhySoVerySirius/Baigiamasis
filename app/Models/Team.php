@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -12,9 +13,9 @@ class Team extends Model
     use HasFactory;
     use SoftDeletes;
 
-    public function assignedProject(): HasMany
+    public function assignedProject(): BelongsToMany
     {
-        return $this->hasMany(Project::class);
+        return $this->belongsToMany(Project::class, 'team_projects');
     }
 
     public function messages(): HasMany
@@ -22,8 +23,8 @@ class Team extends Model
         return $this->hasMany(Message::class);
     }
 
-    public function teamMembers(): HasMany
+    public function usersInTeam(): BelongsToMany
     {
-        return $this->hasMany(TeamMember::class);
+        return $this->belongsToMany(User::class, 'team_members')->using(TeamMember::class);
     }
 }

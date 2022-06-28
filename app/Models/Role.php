@@ -14,8 +14,7 @@ class Role extends Model
     public const ROLE_USER = 'ROLE_USER';
     public const ROLE_PROJECT_MANAGER = 'ROLE_PROJECT_MANAGER';
 
-    public function user(): HasMany
-    {
-        return $this->hasMany(User::class);
-    }
+    protected $fillable = [
+        'role_title',
+    ];
 }

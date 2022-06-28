@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -52,9 +53,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function role(): HasMany
+    public function role(): BelongsToMany
     {
-        return $this->hasMany(Role::class);
+        return $this->belongsToMany(Role::class);
     }
 
     public function managedProjects(): HasMany
@@ -77,8 +78,8 @@ class User extends Authenticatable
         return $this->hasMany(Message::class, 'target', 'id');
     }
 
-    public function assignedTeam(): HasMany
+    public function assignedTeam(): BelongsToMany
     {
-        return $this->hasMany(TeamMember::class);
+        return $this->belongsToMany(Team::class, 'team_members')->using(TeamMember::class);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -15,7 +16,7 @@ class Project extends Model
 
     public function projectManager(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'project_manager');
     }
 
     public function customer(): BelongsTo
@@ -23,9 +24,9 @@ class Project extends Model
         return $this->belongsTo(Customer::class);
     }
 
-    public function assignedTeams(): HasMany
+    public function assignedTeams(): BelongsToMany
     {
-        return $this->hasMany(Team::class);
+        return $this->belongsToMany(Team::class, 'team_projects');
     }
 
     public function messages(): HasMany

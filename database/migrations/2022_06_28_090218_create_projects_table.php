@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('title')->unique();
-            $table->foreignId('customer_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('customer_id')->nullable()->constrained();
+            $table->foreignId('project_manager')->nullable();
+            $table->foreign('project_manager')->references('id')->on('users');
             $table->enum('status', ['upcoming', 'pending', 'overdue', 'not_started', 'priority', 'canceled', 'active']);
             $table->date('deadline');
             $table->timestamps();

@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
+    public array $status = ['available' => '0','unavailable' => '1'];
     /**
      * Define the model's default state.
      *
@@ -18,10 +19,14 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'full_name' => $this->faker->name() ,
+            'title' => $this->faker->title(),
             'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'login' => Str::random(8),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'status' => array_rand($this->status),
+            'description' => $this->faker->paragraph(random_int(3,5)),
+            'email_verified_at' => now(),
             'remember_token' => Str::random(10),
         ];
     }
