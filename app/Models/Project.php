@@ -27,4 +27,14 @@ class Project extends Model
     {
         return $this->hasMany(Team::class);
     }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function files(): HasMany
+    {
+        return $this->hasMany(ProjectFile::class);
+    }
 }

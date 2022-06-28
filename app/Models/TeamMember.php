@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TeamMember extends Model
@@ -12,4 +13,14 @@ class TeamMember extends Model
     use SoftDeletes;
 
     protected $table = 'team_members';
+
+    public function member(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function assignedTeam(): BelongsTo
+    {
+        return $this->belongsTo(Team::class);
+    }
 }

@@ -16,4 +16,14 @@ class Team extends Model
     {
         return $this->hasMany(Project::class);
     }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function teamMembers(): HasMany
+    {
+        return $this->hasMany(TeamMember::class);
+    }
 }
